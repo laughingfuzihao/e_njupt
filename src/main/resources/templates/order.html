@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>e-南邮</title>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header>订单管理</el-header>
+        <el-row>
+            <div style=" text-align: center;line-height: 100px;">
+                <el-button type="primary" round v-on:click="getUsers" style="width: 130px;bottom: 20%">查询</el-button>
+            </div>
+        </el-row>
+
+        <el-main style="position: fixed ; width: 100%;top:24%; ">
+            <template>
+                <el-table
+                        :data="tableData"
+                        style="width: 100%">
+                    <el-table-column
+                            property="username"
+                            label="用户"
+                            width="180">
+                    </el-table-column>
+                    <el-table-column
+                            prop="userphone"
+                            label="用户手机"
+                            width="180">
+                    </el-table-column>
+                    <el-table-column
+                            prop="type"
+                            label="订单类型">
+                    </el-table-column>
+                    <el-table-column
+                            prop="getAddress"
+                            label="取货地址">
+                    </el-table-column>
+                    <el-table-column
+                            prop="sendAddress"
+                            label="送货地址">
+                    </el-table-column>
+                    <el-table-column
+                            prop="code"
+                            label="货号/尾号">
+                    </el-table-column>
+<!--                    <el-table-column
+                            prop="endTime"
+                            label="截至时间">
+                    </el-table-column>-->
+                    <el-table-column
+                            prop="states"
+                            label="订单状态">
+                    </el-table-column>
+                    <el-table-column
+                            prop="workername"
+                            label="接单人">
+                    </el-table-column>
+                    <el-table-column
+                            prop="workerphone"
+                            label="接单人电话">
+                    </el-table-column>
+                </el-table>
+                <div class="Pagination" style="text-align: left;margin-top: 10px;">
+                    <el-pagination
+                            style="margin-top:15px;"
+                            background
+                            layout="prev, pager, next"
+                            :current-page.sync="pagination.current"
+                            :page-size.sync="pagination.size"
+                            :total="pagination.count"
+                            @current-change="handleCurrentChange">
+                    </el-pagination>
+                </div>
+            </template>
+        </el-main>
+    </el-container>
+</div>
+<div class="foot">京ICP备20013876<br>@laughing 2020 - 2020</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="js/moment.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                form: {},
+                tableData: [{
+                    registe_time: '2016-05-02',
+                    username: '王小虎',
+                    city: '上海市普陀区金沙江路 1518 弄'
+                }],
+                pagination: {
+                    current: 1,
+                    size: 5,
+                    count: 0,
+                    orderby: ''  //升降序
+                },
+            };
+        },
+        created() {
+            this.initData();
+        },
+        methods: {
+            async initData() {
+                try {
+                    this.getUsers();
+                } catch (err) {
+                    console.log('获取数据失败', err);
+                }
+            },
+            async getUsers() {
+                var that = this;
+                $.ajax({
+                    url: "https://laughing-blog.cn/order/getOrder/" + this.pagination.current + "/5/",
+                    type: "get",
+                    success: function (res) {
+                        console.log(res);
+                        that.tableData = res.records;
+                        that.pagination.current = res.current;
+                        that.pagination.size = res.size
+                        that.pagination.count = res.total
+                    },
+
+                })
+            },
+            handleCurrentChange(val) {
+                this.pagination.current = val;
+                this.getUsers(this.pagination.current)
+            },
+
+        }
+    })
+</script>
+<style>
+    body {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://api.dujin.org/bing/1920.php) 0px 0px no-repeat;
+    }
+
+    header {
+        color: #ffffff;
+        font-size: 30px;
+        text-align: center;
+        line-height: 100px;
+    }
+
+    .el-form-item__label {
+        color: #ffffff;
+    }
+
+
+    .app-block {
+        width: 28%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 3em 5em;
+        height: 80%;
+    }
+
+    .foot {
+
+        color: white;
+        font-size: 14px;
+        position: fixed;
+        bottom: 8%;
+        left: 45%;
+    }
+</style>
+</html>

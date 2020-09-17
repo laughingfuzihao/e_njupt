@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<title>e-南邮</title>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-container>
+
+        <el-header>e-南邮</el-header>
+
+
+        <el-main style="position: fixed ; width: 100%;top:24%; ">
+            <el-row>
+                <div style=" text-align: center;line-height: 50px;">
+                    <el-button type="success" round v-on:click="gotoUser" style="width: 230px;bottom: 20%">用户管理</el-button>
+                </div>
+            </el-row>
+
+            <el-row>
+                <div style=" text-align: center;line-height: 50px;">
+                    <el-button type="success" round v-on:click="gotoWorker" style="width: 230px;bottom: 20%">骑手管理</el-button>
+                </div>
+            </el-row>
+
+            <el-row>
+                <div style=" text-align: center;line-height: 50px;">
+                    <el-button type="success" round v-on:click="gotoOrder" style="width: 230px;bottom: 20%">订单管理</el-button>
+                </div>
+            </el-row>
+
+            <el-row>
+                <div style=" text-align: center;line-height: 50px;">
+                    <el-button type="success" round v-on:click="getDs" style="width: 230px;bottom: 20%">电子对账单</el-button>
+                </div>
+            </el-row>
+        </el-main>
+    </el-container>
+</div>
+<div class="foot">京ICP备20013876<br>@laughing 2020 - 2020</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+
+            };
+        },
+        created() {
+            this.initData();
+        },
+        methods: {
+            gotoUser: function (){
+                location.href="https://laughing-blog.cn/page/user";
+            },
+            gotoOrder: function (){
+                location.href="https://laughing-blog.cn/page/order";
+            },
+            gotoWorker: function (){
+                location.href="https://laughing-blog.cn/page/worker";
+            },
+            getDs: function (){
+                location.href="https://laughing-blog.cn/page/ds";
+            }
+
+        }
+    })
+</script>
+<style>
+    body {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://api.dujin.org/bing/1920.php) 0px 0px no-repeat;
+    }
+
+    header {
+        color: #ffffff;
+        font-size: 30px;
+        text-align: center;
+        line-height: 100px;
+    }
+
+    .el-form-item__label {
+        color: #ffffff;
+    }
+
+
+    .app-block {
+        width: 28%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 3em 5em;
+        height: 80%;
+    }
+
+    .foot {
+
+        color: white;
+        font-size: 14px;
+        position: fixed;
+        bottom: 8%;
+        left: 45%;
+    }
+</style>
+</html>
